@@ -1,0 +1,7 @@
+/* comment block */
+{
+    a:="salam";
+    print(a);
+
+}
+/* comment block */

@@ -1,0 +1,21 @@
+/* comment block */
+{
+    print(2+3*5);
+    c:= "hello";
+    o:= len(c);
+    print(o);
+    f:=2;
+    b:=5;
+    a:= b-(f*0.25);
+    c:= chop(a);
+    print("hello" , a);
+    print(c);
+    if(f<b) {
+      print("enter if");
+    }
+    else {
+    print("enter else");
+
+    }
+}
+/* comment block */
