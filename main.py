@@ -309,6 +309,9 @@ def p_expression_name_str(t):
     'expression : TEXT'
     t[0] = t[1]
 
+def p_empty(t):
+    'empty  : '
+    pass
 
 def p_error(t):
     print("Syntax error at '%s'" % t.value)
