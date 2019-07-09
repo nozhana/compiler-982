@@ -182,66 +182,49 @@ def p_assign_statement_5(t):
     '''
     print(t[3])
 
+def p_condition(t):
+    '''condition    : E LESS E
+                    | E LARGER E
+                    | E UNEQUAL E
+                    | E EQUAL E
+    '''
+
+    if t[2] == '<':
+        t[0] = True if t[1] < t[3] else False
+    elif t[2] == '>':
+        t[0] = True if t[1] > t[3] else False
+    elif t[2] == '=':
+        t[0] = True if t[1] == t[3] else False
+    elif t[2] == '<>':
+        t[0] = True if t[1] != t[3] else False
+    else:
+        print ('UNSUPPORTED LOGICAL OPERATOR')
+        t[0] = False
+
+def p_else_statement(t):
+    '''else_statement   : ELSE statement
+                        | ELSE if_statement
+                        | empty
+    '''
+
+    t[0] = t[-1]
+
 def p_if_statement(t):
-        '''if_statement : IF LPAR E LESS E RPAR statement ELSE statement
-            | IF LPAR E LARGER E RPAR statement ELSE statement
-            | IF LPAR E UNEQUAL E RPAR statement ELSE statement
-            | IF LPAR E EQUAL E RPAR statement ELSE statement
-            | IF LPAR E LESS E RPAR statement
-            | IF LPAR E LARGER E RPAR statement
-            | IF LPAR E UNEQUAL E RPAR statement
-            | IF LPAR E EQUAL E RPAR statement'''
+        '''if_statement : IF LPAR condition RPAR statement else_statement
+        '''
 
-        if len(t) == 8:
-            if(t[4] == '<'):
-                if t[3] < t[5]:
-                    t[0] = t[7]
-            elif(t[4] == '>'):
-                if t[3] > t[5]:
-                    t[0] = t[7]
-            elif(t[4] == '<>'):
-                if t[3] != t[5]:
-                    t[0] = t[7]
-            elif(t[4] == '='):
-                if t[3] == t[5]:
-                    t[0] = t[7]
-
-        if len(t) == 10:
-            if(t[4] == '<'):
-                if t[3] < t[5]:
-                    t[0] = t[7]
-                else:
-                    t[0] = t[9]
-            elif(t[4] == '>'):
-                if t[3] > t[5]:
-                    t[0] = t[7]
-                else:
-                    t[0] = t[9]
-            elif(t[4] == '<>'):
-                if t[3] != t[5]:
-                    t[0] = t[7]
-                else:
-                    t[0] = t[9]
-            elif(t[4] == '='):
-                if t[3] == t[5]:
-                    t[0] = t[7]
-                else:
-                    t[0] = t[9]
-
-
+        if t[3]:
+            t[0] = t[5]
+        else:
+            t[0] = t[6]
 
 
 
 def p_while_statement(t):
-        '''while_statement : WHILE LPAR E LESS E RPAR statement
-            | WHILE LPAR E LESS E RPAR statement ELSE statement
-            | WHILE LPAR E LARGER E RPAR statement
-            | WHILE LPAR E LARGER E RPAR statement ELSE statement
-            | WHILE LPAR E UNEQUAL E RPAR statement
-            | WHILE LPAR E UNEQUAL E RPAR statement ELSE statement
-            | WHILE LPAR E EQUAL E RPAR statement
-            | WHILE LPAR E EQUAL E RPAR statement ELSE statement
-    '''
+        '''while_statement : WHILE LPAR condition RPAR statement else_statement
+        '''
+
+        pass
 
 
 def p_E(t):
