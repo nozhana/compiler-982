@@ -12,6 +12,13 @@ tokens = reserved + (
     # , 'NLINE'
 )
 
+precedence = (
+
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE'),
+    ('left', 'POW'),
+)
+
 
 # fix
 t_ASSIGN        = r':='
@@ -176,14 +183,14 @@ def p_assign_statement_5(t):
     print(t[3])
 
 def p_if_statement(t):
-        '''if_statement : IF LPAR E LESS E RPAR statement
-            | IF LPAR E LESS E RPAR statement ELSE statement
-            | IF LPAR E LARGER E RPAR statement
+        '''if_statement : IF LPAR E LESS E RPAR statement ELSE statement
             | IF LPAR E LARGER E RPAR statement ELSE statement
-            | IF LPAR E UNEQUAL E RPAR statement
             | IF LPAR E UNEQUAL E RPAR statement ELSE statement
-            | IF LPAR E EQUAL E RPAR statement
-            | IF LPAR E EQUAL E RPAR statement ELSE statement'''
+            | IF LPAR E EQUAL E RPAR statement ELSE statement
+            | IF LPAR E LESS E RPAR statement
+            | IF LPAR E LARGER E RPAR statement
+            | IF LPAR E UNEQUAL E RPAR statement
+            | IF LPAR E EQUAL E RPAR statement'''
 
         if len(t) == 8:
             if(t[4] == '<'):
