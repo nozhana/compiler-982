@@ -4,7 +4,7 @@ class CalcLexer(Lexer):
     tokens = {NUMBER, PLUS, MINUS, DIV, MUL, LPAR, RPAR, POW, LBRACE,
               RBRACE, GREATER, LESS, EQUAL, NOTEQUAL,
               ID, STRING, ASSIGN, SEMICOLON, COMMA,
-              COMMENT,
+              COMMENT, PRINT,
               IF, WHILE, ELSE}
 
     ignore = r' \t'
@@ -30,6 +30,7 @@ class CalcLexer(Lexer):
     ID['if'] = IF
     ID['else'] = ELSE
     ID['while'] = WHILE
+    ID['print'] = PRINT
 
     @_(r'[a-zA-Z_][a-zA-Z0-9_]*')
     def ID(self, t):
@@ -40,7 +41,7 @@ class CalcLexer(Lexer):
         t.value = int(t.value)
         return t
 
-    @_(r'''[\"|\'][A-z-0-9- ]+[\"|\']''')
+    @_(r'[\"|\']\w+[\"|\']')
     def STRING(self, t):
         t.value = t.value.replace('"', '')
         return t
