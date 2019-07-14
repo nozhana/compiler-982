@@ -1,9 +1,10 @@
 from sly import Parser
 from sly_lexer import CalcLexer
+from assembly import Assembly
 
 class CalcParser(Parser):
     tokens = CalcLexer.tokens
-    temp = []
+    # temp = []
     stack = []
     in_pow = 0
     in_mul = 0
