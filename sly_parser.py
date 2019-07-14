@@ -16,6 +16,12 @@ class CalcParser(Parser):
     in_gt = 0
     in_lab = 0
 
+    precedence = (
+        ('left', PLUS, MINUS),
+        ('left', MUL, DIV),
+        ('left', STRING),
+    )
+
     @_('LBRACE BODY RBRACE')
     def S(self, p):
         self.temp.append("")
@@ -35,10 +41,6 @@ class CalcParser(Parser):
     # @_('ID ASSIGN E SEMICOLON')
     # def CODE(self, p):
     #     self.temp.append("MOV " + str(p.E) + ",," + str(p.ID))
-
-    @_('PRINT LPAR STRING RPAR')
-    def EXPR(self, p):
-        self.temp.append("PRINT " + '"' + p.STRING + '"')
 
 
     @_('WHILE LPAR CON RPAR LBRACE BODY RBRACE')
@@ -70,6 +72,10 @@ class CalcParser(Parser):
     @_('ID ASSIGN E')
     def EXPR(self, p):
         self.temp.append("MOV " + str(p.E) + ",," + str(p.ID))
+
+    @_('PRINT LPAR STRING RPAR')
+    def EXPR(self, p):
+        self.temp.append("PRINT " + p.STRING)
 
     @_('E NOTEQUAL E')
     def CON(self, p):
