@@ -30,9 +30,10 @@ if __name__ == '__main__':
             asm_file = 'asm_text.txt'
 
         if code == 'cli':
-            for tok in lexer.tokenize(input('>> ')):
+            inp = input('>> ')
+            for tok in lexer.tokenize(inp):
                 print('type = %r, value = %r' % (tok.type, tok.value))
-            result = parser.parse(lexer.tokenize(input('>> ')))
+            result = parser.parse(lexer.tokenize(inp))
         else:
             for tok in lexer.tokenize(readFile(code)):
                 print('type = %r, value = %r' % (tok.type, tok.value))
