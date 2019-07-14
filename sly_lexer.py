@@ -4,7 +4,7 @@ class CalcLexer(Lexer):
     tokens = {NUMBER, PLUS, MINUS, DIV, MUL, LPAR, RPAR, POW, LBRACE,
               RBRACE, GREATER, LESS, EQUAL, NOTEQUAL,
               ID, STRING, ASSIGN, SEMICOLON, COMMA,
-              COMMENT, PRINT,
+              PRINT,
               IF, WHILE, ELSE}
 
     ignore = r' \t'
@@ -41,9 +41,11 @@ class CalcLexer(Lexer):
         t.value = int(t.value)
         return t
 
-    @_(r'[\"|\']\w+[\"|\']')
+    # @_(r'''[\"|\'][\w= ]+[\"|\']''')
+    @_(r'''("[^"]*")|('[^']*')''')
     def STRING(self, t):
-        t.value = t.value.replace('"', '')
+        temp = t.value[1:-1].replace('"', '\\"')
+        t.value = ''.join(('"', temp, '"'))
         return t
 
     @_(r'\n+')
